@@ -15,10 +15,9 @@ self.addEventListener('fetch', event => {
 
   event.waitUntil(async function () {
     const formData = await event.request.formData();
+    const client = await selt.clients.get(event.resultingClientId);
     const image = formData.get('image');
     console.log('image', image);
-
-    const channel = new BroadcastChannel('sw-channel');
-    channel.postMessage({ image, action: 'load' });
+    client.postMessage({ image, action: 'load' });
   }());
 });
