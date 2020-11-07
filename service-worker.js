@@ -13,7 +13,7 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith((async () => {
-    console.log(request);
+    console.log(event.request);
     const formData = await event.request.formData();
     const image = formData.get('image');
     console.log('image', image);
