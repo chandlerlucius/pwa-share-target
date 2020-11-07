@@ -15,7 +15,7 @@ self.addEventListener('fetch', event => {
 
   event.waitUntil(async function () {
     const formData = await event.request.formData();
-    const client = await selt.clients.get(event.resultingClientId);
+    const client = await self.clients.get(event.resultingClientId);
     const image = formData.get('image');
     console.log('image', image);
     client.postMessage({ image, action: 'load' });
