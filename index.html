@@ -34,13 +34,13 @@
           });
       
         const channel = new BroadcastChannel('sw-channel');
-        channel.addEventListener('message', event => {
+        channel.onmessage = function(event) {
           const imageBlob = event.data.image;
           const img = document.createElement('img');
           img.width = '80%';
           img.src = URL.createObjectURL(imageBlob);
           document.body.appendChild(img);
-        });
+        };
       });
     }
   </script>
