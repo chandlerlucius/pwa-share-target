@@ -10,14 +10,15 @@ workbox.routing.registerRoute(
 self.addEventListener('fetch', event => {
   if(event.request.method !== 'POST') {
     return;
-  }    
+  }
+  event.respondWith(Response.redirect('/?share-target'));
 
-  event.respondWith((async () => {
+  event.waitUntil(async function () {
     const formData = await event.request.formData();
     const image = formData.get('image');
     console.log('image', image);
 
     const channel = new BroadcastChannel('sw-channel');
     channel.postMessage({ image, action: 'load' });
-  })());
+  }());
 });
