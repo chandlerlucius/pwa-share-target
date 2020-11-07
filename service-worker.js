@@ -12,16 +12,12 @@ self.addEventListener('fetch', event => {
     return;
   }    
 
-  event.waitUntil(async function () {
-    const client = await clients.get(event.clientId);
-    if (!client) {
-      return;
-    }
-    
+  event.waitUntil(async function () {    
     const formData = await event.request.formData();
     const image = formData.get('image');
     console.log('image', image);
 
-    client.postMessage({ image, action: 'load' });
+    const channel = new BroadcastChannel('sw-channel');
+    channel.postMessage({ image, action: 'load' });
   }());
 });
