@@ -1,5 +1,5 @@
-# pwa-starter-template
-A template used to begin work on a PWA (Progressive Web App)
+# pwa-share-target
+A test of the Web Share Target API for PWAs
 
 Live Example:  
-https://chandlerlucius.github.io/pwa-starter-template/
+https://chandlerlucius.github.io/pwa-share-target/
