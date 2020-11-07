@@ -11,7 +11,7 @@ self.addEventListener('fetch', event => {
   if(event.request.method !== 'POST') {
     return;
   }
-  event.respondWith(Response.redirect('?share-target'));
+  event.respondWith(Response.redirect('..?share-target'));
 
   event.waitUntil(async function () {
     const formData = await event.request.formData();
