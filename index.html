@@ -21,28 +21,10 @@
   <link rel="shortcut icon" href="./images/icons/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png">
 
+  <script src="./js/exif.min.js"></script>
+  <script src="./js/main.js"></script>
+
   <title>PWA Share Target</title>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(reg => {
-            console.log('Service worker registered!', reg);
-          })
-          .catch(err => {
-            console.log('Service worker registration failed: ', err);
-          });
-        
-        navigator.serviceWorker.onmessage = (event) => {
-          const imageBlob = event.data.image;
-          const img = document.createElement('img');
-          img.style.width = '80vw';
-          img.src = URL.createObjectURL(imageBlob);
-          document.body.appendChild(img);
-        };
-      });
-    }
-  </script>
 </head>
 
 <body>
