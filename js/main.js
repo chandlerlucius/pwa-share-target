@@ -45,8 +45,8 @@ const parseExifGpsData = function (exifData) {
     const longitudeDms = EXIF.getTag(exifData, 'GPSLongitude');
     const longitudeDirection = EXIF.getTag(exifData, 'GPSLongitudeRef');
     
-    const latitude = convertDmsToDd(latitudeDms[0], latitudeDms[1], latitudeDms[3], latitudeDirection);
-    const longitude = convertDmsToDd(longitudeDms[0], longitudeDms[1], longitudeDms[2], longitudeDms[3], longitudeDirection);
+    const latitude = convertDmsToDd(latitudeDms[0], latitudeDms[1], latitudeDms[2], latitudeDirection);
+    const longitude = convertDmsToDd(longitudeDms[0], longitudeDms[1], longitudeDms[2], longitudeDirection);
     console.log(latitude, longitude);
 }
 
