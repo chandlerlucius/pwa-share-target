@@ -26,6 +26,8 @@ const importFileAndParseExif = function (event) {
         tmpImg.src = e.target.result;
         tmpImg.onload = function () {
             EXIF.getData(tmpImg, function () {
+                parseExifGpsData(this);
+                
                 const orientation = EXIF.getTag(this, 'Orientation') || 1;
                 const orientedImage = compressResizeAndOrientImage(tmpImg, orientation, maxWidth, maxHeight, 1);
                 const img = document.createElement('img');
@@ -35,6 +37,25 @@ const importFileAndParseExif = function (event) {
         };
     };
     reader.readAsDataURL(imageBlob);
+}
+
+const parseExifGpsData = function (exifData) {
+    const latitudeDms = EXIF.getTag(exifData, 'GPSLatitude');
+    const latitudeDirection = EXIF.getTag(exifData, 'GPSLatitudeRef');
+    const longitudeDms = EXIF.getTag(exifData, 'GPSLongitude');
+    const longitudeDirection = EXIF.getTag(exifData, 'GPSLongitudeRef');
+    
+    const latitude = convertDmsToDd(latitudeDms[0], latitudeDms[1], latitudeDms[3], latitudeDirection);
+    const longitude = convertDmsToDd(longitudeDms[0], longitudeDms[1], longitudeDms[2], longitudeDms[3], longitudeDirection);
+    console.log(latitude, longitude);
+}
+
+const convertDmsToDd = function (degrees, minutes, seconds, direction) {
+    let decimalDegrees = degrees + (minutes / 60) + (seconds / 3600);
+    if(direction == 'S' || direction == 'W') {
+        decimalDegrees *= -1;
+    }
+    return decimalDegrees;
 }
 
 const compressResizeAndOrientImage = function (img, orientation, maxWidth, maxHeight, quality) {
