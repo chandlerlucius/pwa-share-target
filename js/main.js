@@ -33,7 +33,7 @@ const importFileAndParseExif = function (event) {
                 document.body.appendChild(img);
                 
                 const latLng = parseExifGpsData(this);
-                initMap(latLng, this);
+                initMap(latLng);
             });
         };
     };
@@ -132,7 +132,7 @@ const compressResizeAndOrientImage = function (img, orientation, maxWidth, maxHe
     return canvas.toDataURL("image/jpeg", quality);
 }
 
-const initMap = function(latLng, exif) {
+const initMap = function(latLng) {
   const service = new google.maps.places.PlacesService(map);
   service.nearbySearch(
     { location: latLng, radius: 1000, type: "tourist_attraction" },
