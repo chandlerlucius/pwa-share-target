@@ -174,10 +174,10 @@ const createMapboxMarkersAndPopups = function (map, places) {
         const markerElement = document.createElement('img');
 
         const popupElement = document.querySelector('.infowindow');
-        if (place.icon) {
+        if (place.photos) {
             const img = document.createElement('img');
             img.alt = 'Photo of ' + place.name;
-            img.src = place.icon;
+            img.src = place.photo[0].getUrl({maxWidth: 35, maxHeight: 35});
             img.style.filter = 'blur(10px)';
 
             popupElement.querySelector('.card-image').prepend(img);
@@ -200,9 +200,6 @@ const createMapboxMarkersAndPopups = function (map, places) {
                 anchor: 'left'
             })
             .setHTML(popupElement.outerHTML);
-        popup.on('open', function (e) {
-            changeSrcOfImage(document.querySelector('.card-image img'));
-        })
 
         if (place.icon) {
             markerElement.classList.add('marker');
