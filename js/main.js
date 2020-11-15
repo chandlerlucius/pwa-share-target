@@ -177,7 +177,7 @@ const createMapboxMarkersAndPopups = function (map, places) {
         if (place.photos) {
             const img = document.createElement('img');
             img.alt = 'Photo of ' + place.name;
-            img.src = place.photo[0].getUrl({maxWidth: 35, maxHeight: 35});
+            img.src = place.photos[0].getUrl({maxWidth: 35, maxHeight: 35});
             img.style.filter = 'blur(10px)';
 
             popupElement.querySelector('.card-image').prepend(img);
