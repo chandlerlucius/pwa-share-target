@@ -159,7 +159,6 @@ const createResults = function(places) {
 const initMapbox = function (places) {
     mapboxgl.accessToken = 'pk.eyJ1IjoicnVubmluZ2hhaXIxOCIsImEiOiJjanN5dXF5aGgxNzVkNDNwcGI4NHp1bmp4In0.-YVFnu5m4LXZhZaHuZmQMQ';
     const mapElement = 'map';
-    document.querySelector('#' + mapElement).style.height = '300px';
     const map = new mapboxgl.Map({
         container: mapElement,
         style: 'mapbox://styles/mapbox/satellite-streets-v10?optimize=true',
