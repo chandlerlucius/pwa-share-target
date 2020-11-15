@@ -170,7 +170,8 @@ const createMarkers = function(places, map) {
   const bounds = new google.maps.LatLngBounds();
   const placesList = document.getElementById("places");
 
-  for (let i = 0, place; (place = places[i]); i++) {
+  for (let i = 0; i < 10; i++) {
+    const place = places[i];
     const image = {
       url: place.icon,
       size: new google.maps.Size(71, 71),
