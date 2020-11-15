@@ -174,11 +174,10 @@ const createMapboxMarkersAndPopups = function (map, places) {
         const markerElement = document.createElement('img');
 
         const popupElement = document.querySelector('.infowindow');
-        if (place.thumbnailPaths && place.thumbnailPaths.length > 0) {
+        if (place.icon) {
             const img = document.createElement('img');
             img.alt = 'Photo of ' + place.name;
-            img.src = urlRequest + '/details/' + tripId + '/place/' + placeId + '/photo/' + place.thumbnailPaths[0];
-            img.setAttribute('data-src', urlRequest + '/details/' + tripId + '/place/' + placeId + '/photo/' + place.photoPaths[0]);
+            img.src = place.icon;
             img.style.filter = 'blur(10px)';
 
             popupElement.querySelector('.card-image').prepend(img);
@@ -205,10 +204,10 @@ const createMapboxMarkersAndPopups = function (map, places) {
             changeSrcOfImage(document.querySelector('.card-image img'));
         })
 
-        if (place.thumbnailPaths && place.thumbnailPaths.length > 0) {
+        if (place.icon) {
             markerElement.classList.add('marker');
             markerElement.classList.add('marker-large');
-            markerElement.src = urlRequest + '/details/' + tripId + '/place/' + placeId + '/photo/' + place.thumbnailPaths[0];
+            markerElement.src = place.icon;
         } else {
             markerElement.classList.add('marker');
             markerElement.classList.add('marker-small');
