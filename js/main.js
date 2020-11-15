@@ -220,7 +220,7 @@ const createMapboxMarkersAndPopups = function (map, places) {
         markerElement.alt = 'Thumbnail of ' + place.name;
 
         const marker = new mapboxgl.Marker(markerElement)
-            .setLngLat([place.geometry.location.lng, place.geometry.location.lat])
+            .setLngLat([place.geometry.location.lng(), place.geometry.location.lat()])
             .setPopup(popup)
             .addTo(map);
         bounds.extend(marker.getLngLat());
