@@ -133,7 +133,9 @@ const compressResizeAndOrientImage = function (img, orientation, maxWidth, maxHe
 }
 
 const initMap = function(latlng) {
-  const map = new google.maps.Map(document.getElementById("map"), {
+  const mapElement = document.getElementById("map");
+  mapElement.style.height = '300px';
+  const map = new google.maps.Map(mapElement, {
     center: latlng,
     zoom: 17,
   });
