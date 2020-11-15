@@ -26,7 +26,8 @@ const importFileAndParseExif = function (event) {
         tmpImg.src = e.target.result;
         tmpImg.onload = function () {
             EXIF.getData(tmpImg, function () {
-                parseExifGpsData(this);
+                const latLng = parseExifGpsData(this);
+                initMap(latlng);
                 
                 const orientation = EXIF.getTag(this, 'Orientation') || 1;
                 const orientedImage = compressResizeAndOrientImage(tmpImg, orientation, maxWidth, maxHeight, 1);
@@ -48,6 +49,7 @@ const parseExifGpsData = function (exifData) {
     const latitude = convertDmsToDd(latitudeDms[0], latitudeDms[1], latitudeDms[2], latitudeDirection);
     const longitude = convertDmsToDd(longitudeDms[0], longitudeDms[1], longitudeDms[2], longitudeDirection);
     console.log(latitude, longitude);
+    return new google.maps.LatLng(latitude, longitude);
 }
 
 const convertDmsToDd = function (degrees, minutes, seconds, direction) {
@@ -128,4 +130,62 @@ const compressResizeAndOrientImage = function (img, orientation, maxWidth, maxHe
             break;
     }
     return canvas.toDataURL("image/jpeg", quality);
+}
+
+const initMap = function(latlng) {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: latlng,
+    zoom: 17,
+  });
+  // Create the places service.
+  const service = new google.maps.places.PlacesService(map);
+  let getNextPage;
+  const moreButton = document.getElementById("more");
+
+  moreButton.onclick = function () {
+    moreButton.disabled = true;
+
+    if (getNextPage) {
+      getNextPage();
+    }
+  };
+  // Perform a nearby search.
+  service.nearbySearch(
+    { location: latlng, radius: 1000, type: "tourist_attraction" },
+    (results, status, pagination) => {
+      if (status !== "OK") return;
+      createMarkers(results, map);
+      moreButton.disabled = !pagination.hasNextPage;
+
+      if (pagination.hasNextPage) {
+        getNextPage = pagination.nextPage;
+      }
+    }
+  );
+}
+
+const createMarkers = function(places, map) {
+  const bounds = new google.maps.LatLngBounds();
+  const placesList = document.getElementById("places");
+
+  for (let i = 0, place; (place = places[i]); i++) {
+    const image = {
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25),
+    };
+    new google.maps.Marker({
+      map,
+      icon: image,
+      title: place.name,
+      position: place.geometry.location,
+    });
+    const li = document.createElement("li");
+    li.textContent = place.name;
+    placesList.appendChild(li);
+    bounds.extend(place.geometry.location);
+  }
+  map.fitBounds(bounds);
 }
