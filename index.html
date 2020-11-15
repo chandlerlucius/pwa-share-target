@@ -21,6 +21,7 @@
   <link rel="shortcut icon" href="./images/icons/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png">
 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&libraries=places">
   <script src="./js/exif.min.js"></script>
   <script src="./js/main.js"></script>
 
@@ -29,6 +30,12 @@
 
 <body>
   <h1>PWA Share Target</h1>
+  <div id="map"></div>
+  <div id="right-panel">
+    <h2>Results</h2>
+    <ul id="places"></ul>
+    <button id="more">More results</button>
+  </div>
 </body>
 
 </html>
