@@ -33,7 +33,7 @@ const importFileAndParseExif = function (event) {
                 document.body.appendChild(img);
                 
                 const latLng = parseExifGpsData(this);
-                initMap(latlng, this);
+                initMap(latLng, this);
             });
         };
     };
@@ -132,10 +132,10 @@ const compressResizeAndOrientImage = function (img, orientation, maxWidth, maxHe
     return canvas.toDataURL("image/jpeg", quality);
 }
 
-const initMap = function(latlng, exif) {
+const initMap = function(latLng, exif) {
   const service = new google.maps.places.PlacesService(map);
   service.nearbySearch(
-    { location: latlng, radius: 1000, type: "tourist_attraction" },
+    { location: latLng, radius: 1000, type: "tourist_attraction" },
     (results, status, pagination) => {
       if (status !== "OK") {
           return;
