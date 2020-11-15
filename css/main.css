@@ -23,3 +23,22 @@
     height: 30px;
     width: 30px;
 }
+
+.infowindow .card-title {
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgb(1, 87, 155, 1));
+}
+
+.infowindow.small .card-content,
+.infowindow.small .card-action {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.infowindow.card.small .card-image {
+    max-height: 80%;
+}
+
+.infowindow .card-image img {
+    height: 250px;
+    object-fit: cover;
+}
