@@ -26,14 +26,14 @@ const importFileAndParseExif = function (event) {
         tmpImg.src = e.target.result;
         tmpImg.onload = function () {
             EXIF.getData(tmpImg, function () {
-                const latLng = parseExifGpsData(this);
-                initMap(latlng);
-                
                 const orientation = EXIF.getTag(this, 'Orientation') || 1;
                 const orientedImage = compressResizeAndOrientImage(tmpImg, orientation, maxWidth, maxHeight, 1);
                 const img = document.createElement('img');
                 img.src = orientedImage;
                 document.body.appendChild(img);
+                
+                const latLng = parseExifGpsData(this);
+                initMap(latlng);
             });
         };
     };
