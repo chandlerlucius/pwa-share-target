@@ -225,4 +225,7 @@ const createMapboxMarkersAndPopups = function (map, places) {
             .addTo(map);
         bounds.extend(marker.getLngLat());
     });
+    map.fitBounds(bounds, {
+        padding: 20
+    });
 }
