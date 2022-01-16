@@ -110,16 +110,17 @@ const addButtonsAndActions = function (latLng) {
 
 const searchNearby = function (latLng) {
     const service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(
-      { location: latLng, radius: 100 },
-      (results, status, pagination) => {
-          if (status === "OK") {
-              for (let i = 0; i < 10; i++) {
-                  addToTable('', results[i].name);
-              }
-          }
-      }
+    service.nearbySearch({ location: latLng, radius: 100 },
+         (results, status, pagination) => {
+             if (status === "OK") {
+                 for (let i = 0; i < 10; i++) {
+                     addToTable('', results[i].name);
+                 }
+            }
+            addToTable('hey', 'hey');
+        }
     );
+    addToTable('no', 'no');
 }
 
 const initMap = function(latLng) {
