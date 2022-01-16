@@ -83,7 +83,7 @@ const reverseGeocodeGPS = function (latLng) {
             if (response.results[0]) {
                 addToTable('Address', response.results[0].formatted_address);
                   const request = {
-                    query: response.results[0].formatted_address,
+                    query: '"' + response.results[0].formatted_address + '"',
                     fields: ["name", "geometry"],
                   };
 
