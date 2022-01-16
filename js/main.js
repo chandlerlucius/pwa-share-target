@@ -94,16 +94,38 @@ const reverseGeocodeGPS = function (latLng) {
                     } else {
                       addToTable('Place', 'No Place Found');
                     }
+                    addButtonsAndActions(latLng);
                   });
             }
         }
     );
 }
 
+const addButtonsAndActions = function (latLng) {
+    const searchNearby = document.querySelector('#search-nearby');
+    searchNearby.addEventListener('click', function() {
+        searchNearby(latLng);
+    }, false);
+}
+
+const searchNearby = function (latLng) {
+    const service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(
+      { location: latLng, radius: 100 },
+      (results, status, pagination) => {
+          if (status === "OK") {
+              for (let i = 0; i < 10; i++) {
+                  addToTable('', results[i].name);
+              }
+          }
+      }
+    );
+}
+
 const initMap = function(latLng) {
   const service = new google.maps.places.PlacesService(map);
   service.nearbySearch(
-    { location: latLng, radius: 1000, type: "tourist_attraction" },
+    { location: latLng, radius: 100 },
     (results, status, pagination) => {
       if (status !== "OK") {
           return;
