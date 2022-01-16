@@ -32,6 +32,7 @@ const importFileAndParseExif = function (event) {
                 
                 parseExifOtherData(this);
                 const latLng = parseExifGpsData(this);
+                reverseGeocodeGPS(latLng);
                 //initMap(latLng);
             });
         };
@@ -39,16 +40,20 @@ const importFileAndParseExif = function (event) {
     reader.readAsDataURL(imageBlob);
 }
 
-const parseExifOtherData = function (exifData) {
-    const dateTime = EXIF.getTag(exifData, 'DateTimeOriginal');
+const addToTable = function (key, value) {
     var tbodyRef = document.getElementById('uploaded-image-details').getElementsByTagName('tbody')[0];
     var newRow = tbodyRef.insertRow();
     var keyCell = newRow.insertCell();
-    var key = document.createTextNode('Date');
-    keyCell.appendChild(key);
+    var keyText = document.createTextNode(key);
+    keyCell.appendChild(keyText);
     var valueCell = newRow.insertCell();
-    var value = document.createTextNode(dateTime);
-    valueCell.appendChild(value);
+    var valueText = document.createTextNode(value);
+    valueCell.appendChild(valueText);
+}
+
+const parseExifOtherData = function (exifData) {
+    const dateTime = EXIF.getTag(exifData, 'DateTimeOriginal');
+    addToTable('Date', dateTime);
 }
 
 const parseExifGpsData = function (exifData) {
@@ -59,7 +64,7 @@ const parseExifGpsData = function (exifData) {
     
     const latitude = convertDmsToDd(latitudeDms[0], latitudeDms[1], latitudeDms[2], latitudeDirection);
     const longitude = convertDmsToDd(longitudeDms[0], longitudeDms[1], longitudeDms[2], longitudeDirection);
-    console.log(latitude, longitude);
+    addToTable('GPS', latitude + ", " + longitude);
     return new google.maps.LatLng(latitude, longitude);
 }
 
@@ -69,6 +74,17 @@ const convertDmsToDd = function (degrees, minutes, seconds, direction) {
         decimalDegrees *= -1;
     }
     return decimalDegrees;
+}
+
+const reverseGeocodeGPS = function (latLng) {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ location: latLng })
+        .then((response) => {
+            if (response.results[0]) {
+                addToTable('Address', response.results[0].formatted_address);
+            }
+        }
+    );
 }
 
 const initMap = function(latLng) {
