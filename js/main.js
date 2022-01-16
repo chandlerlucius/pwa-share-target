@@ -90,7 +90,7 @@ const reverseGeocodeGPS = function (latLng) {
                   const service = new google.maps.places.PlacesService(map);
                   service.findPlaceFromQuery(request, (results, status) => {
                     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-                      addToTable('Place', results[0].geometry.name);
+                      addToTable('Place', results[0].name);
                     } else {
                       addToTable('Place', 'No Place Found');
                     }
