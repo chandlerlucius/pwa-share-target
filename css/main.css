@@ -1,3 +1,13 @@
+body {
+    height: 100vh;
+}
+
+.uploaded-image {
+    image-orientation: from-image;
+    max-width: 75%;
+    max-height: 75%;
+}
+    
 .map {
     height: 300px;
     width: 100%;
@@ -22,10 +32,4 @@
 .marker-large {
     height: 30px;
     width: 30px;
-}
-
-.uploaded-image {
-    image-orientation: from-image;
-    max-width:100%;
-    max-height:100%;
 }
