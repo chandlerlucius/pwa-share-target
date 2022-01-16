@@ -32,12 +32,20 @@ const importFileAndParseExif = function (event) {
                 img.src = orientedImage;
                 document.body.appendChild(img);
                 
+                parseExifOtherData(this);
                 const latLng = parseExifGpsData(this);
                 initMap(latLng);
             });
         };
     };
     reader.readAsDataURL(imageBlob);
+}
+
+const parseExifOtherData = function (exifData) {
+    const dateTime = EXIF.getTag(exifData, 'DateTimeOriginal');
+    const p = document.createElement('p');
+    p.innerHTML = dateTime;
+    document.body.appendChild(p);
 }
 
 const parseExifGpsData = function (exifData) {
