@@ -42,9 +42,13 @@ const importFileAndParseExif = function (event) {
 
 const parseExifOtherData = function (exifData) {
     const dateTime = EXIF.getTag(exifData, 'DateTimeOriginal');
-    const p = document.createElement('p');
-    p.innerHTML = dateTime;
-    document.body.appendChild(p);
+    var tbodyRef = document.getElementById('uploaded-image-details').getElementsByTagName('tbody')[0];
+    var newRow = tbodyRef.insertRow();
+    var newCell = newRow.insertCell();
+    var key = document.createTextNode('Date');
+    newCell.appendChild(key);
+    var value = document.createTextNode(dateTime);
+    newCell.appendChild(value);
 }
 
 const parseExifGpsData = function (exifData) {
