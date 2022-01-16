@@ -30,7 +30,7 @@ const importFileAndParseExif = function (event) {
 //                 const orientedImage = compressResizeAndOrientImage(tmpImg, orientation, maxWidth, maxHeight, 1);
                 const img = document.createElement('img');
                 img.style.imageOrientation = 'from-image';
-                img.src = imageBlob;
+                img.src = URL.createObjectURL(imageBlob);
                 document.body.appendChild(img);
                 
                 parseExifOtherData(this);
