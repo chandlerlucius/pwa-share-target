@@ -82,6 +82,19 @@ const reverseGeocodeGPS = function (latLng) {
         .then((response) => {
             if (response.results[0]) {
                 addToTable('Address', response.results[0].formatted_address);
+                  const request = {
+                    query: response.results[0].formatted_address,
+                    fields: ["name", "geometry"],
+                  };
+
+                  const service = new google.maps.places.PlacesService(map);
+                  service.findPlaceFromQuery(request, (results, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                      addToTable('Place', results[0].geometry.name);
+                    } else {
+                      addToTable('Place', 'No Place Found');
+                    }
+                  });
             }
         }
     );
