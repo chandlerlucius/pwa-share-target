@@ -102,8 +102,8 @@ const reverseGeocodeGPS = function (latLng) {
 }
 
 const addButtonsAndActions = function (latLng) {
-    const searchNearby = document.querySelector('#search-nearby');
-    searchNearby.addEventListener('click', function() {
+    const searchNearbyButton = document.querySelector('#search-nearby');
+    searchNearbyButton.addEventListener('click', function() {
         searchNearby(latLng);
     }, false);
 }
