@@ -34,7 +34,7 @@ const importFileAndParseExif = function (event) {
                 
                 parseExifOtherData(this);
                 const latLng = parseExifGpsData(this);
-//                 initMap(latLng);
+                //initMap(latLng);
             });
         };
     };
