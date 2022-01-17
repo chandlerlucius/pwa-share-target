@@ -81,20 +81,22 @@ const reverseGeocodeGPS = function (latLng) {
         .then((response) => {
             if (response.results[0]) {
                 addToTable('Address', response.results[0].formatted_address);
-                  const request = {
+                addToTable('Place Type', response.results[0].place_id);
+                addToTable('Place ID', response.results[0].place_id);
+                const request = {
                     query: '"' + response.results[0].formatted_address + '"',
                     fields: ["name", "geometry"],
-                  };
+                };
 
-                  const service = new google.maps.places.PlacesService(map);
-                  service.findPlaceFromQuery(request, (results, status) => {
-                    if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-                      addToTable('Place', results[0].name);
-                    } else {
-                      addToTable('Place', 'No Place Found');
-                    }
-                    addButtonsAndActions(latLng);
-                  });
+                const service = new google.maps.places.PlacesService(map);
+                service.findPlaceFromQuery(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                    addToTable('Place', results[0].name);
+                } else {
+                    addToTable('Place', 'No Place Found');
+                }
+                addButtonsAndActions(latLng);
+              });
             }
         }
     );
