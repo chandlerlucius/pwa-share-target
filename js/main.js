@@ -87,12 +87,12 @@ const reverseGeocodeGPS = function (latLng) {
                 for (let i = 0; i < place.address_components.length; i++) {
                     const addressType = place.address_components[i].types[0];
                     if (addressType === 'country') {
-                        addToTable('Place Country Name', place.address_components[i].long_name;
-                        addToTable('Place County Code', place.address_components[i].short_name;
+                        addToTable('Place Country Name', place.address_components[i].long_name);
+                        addToTable('Place County Code', place.address_components[i].short_name);
                     } else if (addressType === 'locality' || addressType === 'postal_town') {
-                        addToTable('Place City', place.address_components[i].long_name;
+                        addToTable('Place City', place.address_components[i].long_name);
                     } else if (addressType === 'administrative_area_level_1') {
-                        addToTable('Place Locality', place.address_components[i].long_name;
+                        addToTable('Place Locality', place.address_components[i].long_name);
                     }
                 }
                 const request = {
