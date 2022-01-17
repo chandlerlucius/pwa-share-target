@@ -79,10 +79,22 @@ const reverseGeocodeGPS = function (latLng) {
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ location: latLng })
         .then((response) => {
-            if (response.results[0]) {
-                addToTable('Address', response.results[0].formatted_address);
-                addToTable('Place Type', response.results[0].place_id);
-                addToTable('Place ID', response.results[0].place_id);
+            const place = response.results[0];
+            if (place) {
+                addToTable('Address', place.formatted_address);
+                addToTable('Place Type', place.types[0]);
+                addToTable('Place ID', place.place_id);
+                for (let i = 0; i < place.address_components.length; i++) {
+                    const addressType = place.address_components[i].types[0];
+                    if (addressType === 'country') {
+                        addToTable('Place Country Name', place.address_components[i].long_name;
+                        addToTable('Place County Code', place.address_components[i].short_name;
+                    } else if (addressType === 'locality' || addressType === 'postal_town') {
+                        addToTable('Place City', place.address_components[i].long_name;
+                    } else if (addressType === 'administrative_area_level_1') {
+                        addToTable('Place Locality', place.address_components[i].long_name;
+                    }
+                }
                 const request = {
                     query: '"' + response.results[0].formatted_address + '"',
                     fields: ["name", "geometry"],
